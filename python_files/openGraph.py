@@ -4,6 +4,8 @@ import numpy as np
 import csv 
 import scipy
 
+FILES = ["../topology_low.csv","../topology_avg.csv","../topology_high.csv"]
+
 def graphFromCSV (filename, delimiter = ',', distance_limit = 20000) :
     G = nx.Graph()
     positions = []
@@ -63,7 +65,7 @@ def printGraph(G) :
 
 if __name__ == "__main__" :
     print("ok bb")
-    G = graphFromCSV("../topology_avg.csv",distance_limit=40000)
+    G = graphFromCSV(FILES[0],distance_limit=40000)
     print("import du graph finis...")
     plotGraph(G)
 
