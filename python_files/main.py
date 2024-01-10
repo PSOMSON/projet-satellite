@@ -34,3 +34,4 @@ cc = gc.bigest_connectedComponents(G)
 og.plotGraph(G, "plus grande composante connexe",cc)
 
 # -----------------degrés------------
+gd.calcul_degre_degre_clustering(G)
