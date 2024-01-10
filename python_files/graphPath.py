@@ -4,8 +4,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 def path_analyse(G, weighted=False):
-    weights = G.weight if weighted else None
-    iter = dict(nx.shortest_path_length(G), weight=weights)
+    iter = dict(nx.shortest_path_length(G, weight = "weight"))
     plot_distrib(iter, G)
 
 
@@ -14,13 +13,10 @@ def path_analyse(G, weighted=False):
 def plot_distrib(iter, G):
     paths = []
     print(G.nodes)
-    for i in G.nodes :
-        for j in G.nodes :
-            if i != j :
-                try :
-                    paths.append(iter[i][j])
-                except:
-                    print("no path between " + str(i) + " and " + str(j) + "\n")
+    for i in iter:
+        for j in iter[i]:
+            print(iter[i][j])
+            paths.append(iter[i][j])
     plt.hist(paths)
     plt.xlabel("Taille du plus court chemin")
     plt.ylabel("Nombre de chemins")
