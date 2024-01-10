@@ -29,7 +29,7 @@ def graphFromCSV (filename, delimiter = ',', distance_limit = 20000) :
     return G
 
         
-def plotGraph(G) :
+def plotGraph(G, title = "Graph") :
     pos = nx.get_node_attributes(G,"pos")
     edges_xyz = np.array([np.array([pos[u],pos[v]]) for u, v in G.edges()])
     nodes_xyz = np.array([pos[u] for u in G.nodes()])
@@ -52,6 +52,7 @@ def plotGraph(G) :
 
     _format_axes(ax)
     fig.tight_layout()
+    plt.title(title)
 
     plt.show()
 
@@ -68,5 +69,4 @@ if __name__ == "__main__" :
     G = graphFromCSV(FILES[0],distance_limit=40000)
     print("import du graph finis...")
     plotGraph(G)
-
 
