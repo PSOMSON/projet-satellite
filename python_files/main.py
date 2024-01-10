@@ -25,12 +25,12 @@ G = og.graphFromCSV(og.FILES[0],distance_limit=distance_limite)
 gc.histcliques(G)
 # on obtient comme plus grande clique : 
 clique = gc.bigest_clique(G)
-og.plotGraph(G.subgraph(clique), "plus grande clique")
+og.plotGraph(G, "plus grande clique", clique)
 
 #on plot l'histograme des composantes connexes :
 gc.histconnnectedComponents(G)
 # on obtient comme plus grande composante connexe :
 cc = gc.bigest_connectedComponents(G)
-og.plotGraph(G.subgraph(cc), "plus grande composante connexe")
+og.plotGraph(G, "plus grande composante connexe",cc)
 
 # -----------------degrés------------

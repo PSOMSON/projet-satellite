@@ -29,17 +29,27 @@ def graphFromCSV (filename, delimiter = ',', distance_limit = 20000) :
     return G
 
         
-def plotGraph(G, title = "Graph") :
+def plotGraph(G,title = "Graph",colored = []) :
     pos = nx.get_node_attributes(G,"pos")
     edges_xyz = np.array([np.array([pos[u],pos[v]]) for u, v in G.edges()])
     nodes_xyz = np.array([pos[u] for u in G.nodes()])
+
+    colored_xyz = np.array([pos[u] for u in G.subgraph(colored).nodes()])
+    colored_edges_xyz = np.array([np.array([pos[u],pos[v]]) for u, v in G.subgraph(colored).edges()])
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
     ax.scatter(*nodes_xyz.T, s=100,ec ="w")
+    
     for vizedge in edges_xyz :
         ax.plot(*vizedge.T, color='b', alpha=0.5)
+
+    if colored != [] :
+        ax.scatter(*colored_xyz.T, s=100, c="r",ec ="w")
+        for vizedge in colored_edges_xyz :
+            ax.plot(*vizedge.T, color='r', alpha=1)
+    
     
     def _format_axes(ax) :
         ax.grid(False)
