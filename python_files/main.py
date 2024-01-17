@@ -7,10 +7,10 @@ import graphDeg as gd
 import graphClique as gc
 import graphPath as gp
 
-distance_limite = 40000
+distance_limite = 20000
 IDX = 0
 
-G = og.graphFromCSV(og.FILES[IDX],distance_limit=distance_limite)
+G = og.graphFromCSV(og.FILES[IDX],distance_limit=distance_limite,valuated=True)
 print("import du graph finis...")
 
 # ----------------plus courts chemins----------

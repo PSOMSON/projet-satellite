@@ -6,7 +6,7 @@ import scipy
 
 FILES = ["../topology_low.csv","../topology_avg.csv","../topology_high.csv"]
 
-def graphFromCSV (filename, delimiter = ',', distance_limit = 20000) :
+def graphFromCSV (filename, delimiter = ',', distance_limit = 20000, valuated = True) :
     G = nx.Graph()
     positions = []
     with open(filename, newline='') as csvfile:
@@ -22,14 +22,17 @@ def graphFromCSV (filename, delimiter = ',', distance_limit = 20000) :
                 dist = np.linalg.norm(np.array(actual_pos) - np.array(positions[i]))
 
                 if dist < distance_limit or distance_limit == -1:
-                    G.add_edge(int(row[0]), int(i), weight=dist)
+                    if valuated :
+                        G.add_edge(int(row[0]), int(i), weight=dist)
+                    else : 
+                        G.add_edge(int(row[0]), int(i), weight=1)
         
             positions.append((float(row[1]),float(row[2]),float(row[3])))
         
     return G
 
         
-def plotGraph(G,title = "Graph",colored = []) :
+def plotGraph(G,title = "Graph",colored = [], degree_coloration = True) :
     pos = nx.get_node_attributes(G,"pos")
     edges_xyz = np.array([np.array([pos[u],pos[v]]) for u, v in G.edges()])
     nodes_xyz = np.array([pos[u] for u in G.nodes()])
@@ -40,10 +43,16 @@ def plotGraph(G,title = "Graph",colored = []) :
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-    ax.scatter(*nodes_xyz.T, s=100,ec ="w")
+
+    if degree_coloration :
+        degrees= nx.degree(G)
+        colors = [degrees[node] for node in G.nodes()]
+        ax.scatter(*nodes_xyz.T, s=100, c=colors,ec ="w")
+    else :
+        ax.scatter(*nodes_xyz.T, s=100,ec ="w")
     
     for vizedge in edges_xyz :
-        ax.plot(*vizedge.T, color='b', alpha=0.5)
+        ax.plot(*vizedge.T, color='b', alpha=0.2)
 
     if colored != [] :
         ax.scatter(*colored_xyz.T, s=100, c="r",ec ="w")
