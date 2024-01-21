@@ -35,3 +35,6 @@ og.plotGraph(G, "plus grande composante connexe",cc)
 
 # -----------------degrés------------
 gd.calcul_degre_degre_clustering(G) 
+
+#On dessine la distribution des degrés et du degré de clustering
+gd.draw_degree_and_clustering_distributions(G)
