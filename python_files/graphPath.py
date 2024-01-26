@@ -12,10 +12,10 @@ def path_analyse(G, weighted=False):
 
 def plot_distrib(iter, G):
     paths = []
-    print(G.nodes)
+    #(G.nodes)
     for i in iter:
         for j in iter[i]:
-            print(iter[i][j])
+            #print(iter[i][j])
             paths.append(iter[i][j])
     plt.hist(paths)
     plt.xlabel("Taille du plus court chemin")
